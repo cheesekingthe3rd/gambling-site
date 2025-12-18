@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sports Betting Site</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="top-trim">
+    <div class="left-controls">
+      <select id="myDropdown" aria-label="Select category">
+        <option value="sports">Sports</option>
+        <option value="games">Games</option>
+      </select>
+    </div>
+    <div class="right-controls">
+      <button id="eventsButton" class="Events-Button" aria-haspopup="true" aria-expanded="false">
+        Upcoming Events
+      </button>
+      <button id="loginButton">Login</button>
+      <span id="loggedInUserDisplay" class="hidden" title="Click to logout"></span>
+    </div>
+  </div>
+
+  <main>
+    <section id="sportsContent" class="hidden">
+      <h1>Sports Section</h1>
+      <button id="openBetsButton">View All Bets</button>
+      <form id="placeBetForm" class="hidden" aria-label="Place bet form">
+        <h3>Place a Bet</h3>
+        <label for="teamInput">Team:</label>
+        <input type="text" id="teamInput" name="team" required minlength="1" autocomplete="off" />
+        <label for="amountInput">Amount ($):</label>
+        <input type="number" id="amountInput" name="amount" required min="1" />
+        <button type="submit">Place Bet</button>
+      </form>
+
+      <div id="betsListSection" class="hidden">
+        <h2>All Placed Bets</h2>
+        <ul id="betsList"></ul>
+      </div>
+    </section>
+
+    <section id="gamesContent" class="hidden" aria-label="Games Section">
+      <h1>Games Section</h1>
+      <p>25 cents per chip</p>
+
+      <div id="slotMachine" aria-label="Slot machine game" style="margin-top:20px; max-width: 320px; margin-left:auto; margin-right:auto; text-align:center;">
+        <div id="chipsDisplay" style="font-weight:bold; font-size:18px; margin-bottom: 10px;">Chips: 0</div>
+
+        <div style="margin-bottom: 15px;">
+         
+        </div>
+
+        <div id="slots" style="display:flex; justify-content:center; gap: 15px; font-size: 64px; user-select:none;">
+          <span class="slot" style="width:70px; height:70px; background:#333; border-radius:10px; line-height:70px; box-shadow:0 0 10px #aa0000; display:inline-block; text-align:center;">🍒</span>
+          <span class="slot" style="width:70px; height:70px; background:#333; border-radius:10px; line-height:70px; box-shadow:0 0 10px #aa0000; display:inline-block; text-align:center;">🍋</span>
+          <span class="slot" style="width:70px; height:70px; background:#333; border-radius:10px; line-height:70px; box-shadow:0 0 10px #aa0000; display:inline-block; text-align:center;">🍊</span>
+        </div>
+        <button id="spinButton" style="margin-top: 20px; font-size: 16px; padding: 10px 20px; cursor: pointer; border-radius: 6px; border:none; background: red; color: white; font-weight: bold;">
+          Spin (Cost: 1 chip)
+        </button>
+        <div id="resultMessage" style="margin-top: 16px; font-weight: bold; min-height: 28px; color: #ff4444;"></div>
+      </div>
+
+      <!-- Blackjack game added here -->
+      <div id="blackjackGame" aria-label="Blackjack game" style="margin-top: 30px; max-width: 320px; margin-left:auto; margin-right:auto; text-align:center; color: white;">
+        <h2>Blackjack</h2>
+        <label for="blackjackBet">Bet Chips:</label>
+        <input type="number" id="blackjackBet" min="1" step="1" style="width: 80px; margin-left: 8px;" />
+        <button id="dealButton" style="margin-left: 10px; padding: 6px 12px; font-weight: bold;">Deal</button>
+        <div id="blackjackStatus" style="margin-top: 12px; font-weight: bold; min-height: 24px;"></div>
+        <div id="playerCards" style="margin-top: 8px;"></div>
+        <div id="dealerCards" style="margin-top: 8px;"></div>
+        <button id="hitButton" class="hidden" style="margin-top:10px; padding: 6px 12px;">Hit</button>
+        <button id="standButton" class="hidden" style="margin-left: 10px; padding: 6px 12px;">Stand</button>
+      </div>
+    </section>
+    <!-- Admin Panel: visible only to Braxton -->
+<section id="adminPanel" class="hidden" aria-label="Admin Panel" style="max-width: 400px; margin: 20px auto; background: #222; padding: 15px; border-radius: 6px; color: white;">
+  <h2>Admin Panel (Braxton only)</h2>
+  <label for="adminUserSelect">Select User:</label>
+  <select id="adminUserSelect" aria-required="true">
+    <option value="">-- Select User --</option>
+    <option value="braxton">braxton</option>
+    <option value="brynley">brynley</option>
+    <option value="aaron">aaron</option>
+    <option value="riggin">riggin</option>
+    <option value="warren">warren</option>
+    <option value="liam">liam</option>
+    <option value="asher">asher</option>
+  </select>
+  <label for="chipAmountInput">Chip Amount to Add/Subtract:</label>
+  <input type="number" id="chipAmountInput" placeholder="Positive or negative integer" />
+  <button id="updateChipsButton" style="margin-top:10px; background: red; color: white; border: none; padding: 8px; font-weight:bold; cursor:pointer;">
+    Update Chips
+  </button>
+  <div id="adminMsg" style="margin-top:10px; font-weight: bold;"></div>
+</section>
+
+  </main>
+
+  <!-- Login Side Panel -->
+  <aside id="loginPanel" class="side-panel" aria-hidden="true">
+    <button class="close-btn" aria-label="Close login panel">&times;</button>
+    <h2>Login</h2>
+    <form id="loginForm" aria-label="Login form">
+      <label for="username">Username:</label>
+      <input id="username" type="text" name="username" minlength="1" required autocomplete="username" />
+      <label for="password">Password:</label>
+      <input id="password" type="password" name="password" minlength="1" required autocomplete="current-password" />
+      <button type="submit">Submit</button>
+    </form>
+  </aside>
+
+  <div id="bottomContact" aria-label="Contact for bets">
+    If no account make a bet by texting <a href="tel:3852160636" style="color: white; text-decoration: underline;">385-216-0636</a> or emailing <a href="mailto:sovietscholar@gmail.com" style="color: white; text-decoration: underline;">sovietscholar@gmail.com</a>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
